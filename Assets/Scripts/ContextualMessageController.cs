@@ -7,6 +7,9 @@ using System.Xml.Serialization;
 public class ContextualMessageController : MonoBehaviour
 {
 
+    [SerializeField]
+    private float fadeOutDuration = 1;
+
     private CanvasGroup canvasGroup;
     private TMP_Text messageText;
 
@@ -28,6 +31,16 @@ public class ContextualMessageController : MonoBehaviour
 
         yield return new WaitForSeconds(duration);
 
+        float fadeElapsedTime = 0;
+        float fadeStartTime = Time.time;
+
+        while (fadeElapsedTime < fadeOutDuration)
+        {
+            fadeElapsedTime = Time.time - fadeStartTime;
+            canvasGroup.alpha = 1 - fadeElapsedTime / fadeOutDuration;
+            yield return null;
+        }
+
         canvasGroup.alpha = 0;
     
     }
@@ -35,6 +48,7 @@ public class ContextualMessageController : MonoBehaviour
     private void OnContextualMessageTriggered(string message, float messageDuration)
     {
 
+        StopAllCoroutines();
         StartCoroutine(ShowMessage(message, messageDuration));
     
     }
