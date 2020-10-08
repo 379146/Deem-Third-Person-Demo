@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System.Xml.Serialization;
 
 public class ContextualMessageController : MonoBehaviour
 {
@@ -29,6 +30,27 @@ public class ContextualMessageController : MonoBehaviour
 
         canvasGroup.alpha = 0;
     
+    }
+
+    private void OnContextualMessageTriggered()
+    {
+
+        StartCoroutine(ShowMessage("TESTING", 4));
+    
+    }
+
+    private void OnEnable()
+    {
+
+        ContextualMessageTrigger.ContextualMessageTriggered += OnContextualMessageTriggered;
+
+    }
+
+    private void OnDisable()
+    {
+
+        ContextualMessageTrigger.ContextualMessageTriggered -= OnContextualMessageTriggered;
+
     }
 
 }
