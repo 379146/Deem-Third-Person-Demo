@@ -7,6 +7,7 @@ public class ContextualMessageTrigger : MonoBehaviour
 {
 
     [SerializeField]
+    [TextArea(3,5)]
     private string message = "TXT here";
 
     [SerializeField]
